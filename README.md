@@ -8,15 +8,5 @@
 
 
 
-
-
-
-
-
-
-
-<a href='https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/ta4tsering/P008165/tree/main/P008165.opf/base' class='button'>Download</a>	Download only base file
-
-<a href='https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/ta4tsering/P008165/tree/main/P008165.opf' class='button'>Download</a>	Download base file with pagination
-
-[<img width="25" src="https://library.bdrc.io/icons/BUDA-small.svg"> Images of base file open in BUDA](https://library.bdrc.io/show/bdr:IE0OPP008165)
+### Downloads <img src="https://img.icons8.com/cotton/20/000000/download-from-cloud.png">
+- [![](https://img.icons8.com/color/20/000000/txt.png) Plain text (.txt)](https://github.com/ta4tsering/P008165/releases/tag/v0.1/P008165.txt) `v123`
