@@ -15,7 +15,7 @@ jobs:
       - name: Download content
         uses: actions/download-artifact@v2
         with:
-          name: P008165/P008165.opf/base
+          name: P008165
 
       - name: Archive base content
         uses: thedoctor0/zip-release@master
