@@ -16,7 +16,8 @@ jobs:
         uses: thedoctor0/zip-release@master
         with:
           filename: base.zip
-          exclusions: '*meta.yml* /*.git* /*.md* /*.opf* /*layers/* '
+          INPUT_FILENAME: '*base/*'
+          exclusions: '*meta.yml* /*.git*/*.md*/*layers/* '
 
       - name: Create Github Release
         id: create_release
