@@ -12,12 +12,6 @@ jobs:
         with:
           ref: main
 
-      - name: Download content
-        uses: actions/download-artifact@v2
-        with:
-          name: P008165
-          path: P008165/P008165.opf
-
       - name: Archive base content
         uses: thedoctor0/zip-release@master
         with:
