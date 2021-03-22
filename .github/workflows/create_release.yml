@@ -18,7 +18,7 @@ jobs:
           name: P008165/P008165.opf/base
 
       - name: Archive base content
-        uses: thedoctor)/zip-release@master
+        uses: thedoctor0/zip-release@master
         with:
           filename: base.zip
 
