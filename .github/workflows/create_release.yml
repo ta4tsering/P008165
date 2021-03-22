@@ -23,18 +23,21 @@ jobs:
           filename: base.zip
 
       - name: Create Github Release
-        id: 
+        id: create_release
         uses: actions/create-release@v1
-        env:
+        env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: v${{ github.run_number }}
-        - name: upload Release assets
+          release_name: Release ${{ github.run_number }}
+          draft: false
+          prerelease: false
+      - name: upload Release assets
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{  secrets.GITHUB_TOKEN }}
         with: 
-          upload_url: ${{ steps.create-new-release.outputs.upload_url }}
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./base.zip
           asset_name: site-v${{ github.run_number }}.zip
           asset_content_type: text/zip
