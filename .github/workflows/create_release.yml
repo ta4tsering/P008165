@@ -12,13 +12,34 @@ jobs:
         with:
           ref: main
 
-      - name: Archive base content
-        uses: thedoctor0/zip-release@master
+      - name: Set up Python
+        uses: actions/setup-python@v1
         with:
-          filename: base.zip
-          path: P008165/P008165.opf/base
-          exclusions: '*meta.yml* /*.git* /*.md* /*layers/* '
+          python-version: 3.6
+      
+      - name: Install openpecha-toolkit
+        run: pip3 install openpecha
+      
+      - name: Install Zipfile
+        run: pip3 install zipfile
 
+      - name: Create base zip file
+        run: |
+          import os 
+          from pathlib import Path
+          from Zipfile import ZipFile
+
+          # get pecha id and opf path
+          repo_name = Path.cwd().name
+          opf_path = Path.cwd().resolve() / f"{repo_name}.opf"
+          base_path = Path(f"{opf_path}/base")
+
+          with ZipFile('base.zip', 'w') as zipObj:
+                for folderName, subfolders, filenames in os.walk(base_path):
+                      for filename in filenames:
+                          filePath = os.path.join(folderName, filename)
+                          zipObj.write(filePath, basename(filePath))
+        
       - name: Create Github Release
         id: create_release
         uses: actions/create-release@v1
