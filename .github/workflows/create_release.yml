@@ -21,7 +21,7 @@ jobs:
         run: pip3 install openpecha
       
       - name: Install Zipfile
-        run: pip3 install zipfile
+        run: pip3 install zip-files
 
       - name: Create base zip file
         run: |
