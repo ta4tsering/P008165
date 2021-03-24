@@ -25,7 +25,7 @@ jobs:
           from pathlib import Path
        
           base_path = Path(f"./P008165/P008165.opf/base")
-          path = './base'
+          path = Path(f"./base")
           
           path.mkdir(exist_ok=True, parents=True)
              
