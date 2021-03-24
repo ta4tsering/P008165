@@ -13,7 +13,7 @@ jobs:
 
       - name: copy Pecha
         run: Copy 'P008165/*'  'Pecha'
-        shell: powershell
+        shell: bash
       
       - name: Set up Python
         uses: actions/setup-python@v1
