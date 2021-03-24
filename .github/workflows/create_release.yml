@@ -12,7 +12,7 @@ jobs:
       - run: mkdir -p Pecha
 
       - name: copy Pecha
-        run: Copy 'P008165/*'  'Pecha'
+        run: cp -R P008165 Pecha
         shell: bash
       
       - name: Set up Python
