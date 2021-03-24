@@ -27,10 +27,8 @@ jobs:
           base_path = Path(f"./P008165/P008165.opf/base")
           path = './base'
           
-          _mkdir(path):
-              path.mkdir(exist_ok=True, parents=True)
+          path.mkdir(exist_ok=True, parents=True)
              
-
           with ZipFile('base.zip', 'w') as zipObj:
                 for folderName, subfolders, filenames in os.walk(base_path):
                       for filename in filenames:
