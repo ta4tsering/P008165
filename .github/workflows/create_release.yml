@@ -10,7 +10,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: mkdir -p Pecha
-
+        with:
+            main
       - name: copy Pecha
         run: cp -R P008165 Pecha
         shell: bash
