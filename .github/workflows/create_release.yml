@@ -9,23 +9,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: mkdir -p Pecha
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
         with:
-            main
-      - name: copy Pecha
-        run: cp -R P008165 Pecha
-        shell: bash
-      
-      - name: Set up Python
-        uses: actions/setup-python@v1
-        with:
-          python-version: 3.6
-      
-      - name: Install openpecha-toolkit
-        run: pip3 install openpecha
-      
-      - name: Install Zipfile
-        run: pip install zipfile36
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install openpecha zipfile36
 
       - name: Create base zip file
         run: |
@@ -33,7 +24,7 @@ jobs:
           import zipfile36 as zipfile
           from pathlib import Path
        
-          base_path = Path(f"./pecha/P008165/P008165.opf/base")
+          base_path = Path(f"./P008165/P008165.opf/base")
 
           with ZipFile('base.zip', 'w') as zipObj:
                 for folderName, subfolders, filenames in os.walk(base_path):
