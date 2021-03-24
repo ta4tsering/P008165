@@ -27,7 +27,7 @@ jobs:
           base_path = Path(f"./P008165/P008165.opf/base")
           path = './base'
           
-          mkdir(path):
+          _mkdir(path):
               path.mkdir(exist_ok=True, parents=True)
              
 
