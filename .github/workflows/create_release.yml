@@ -30,7 +30,7 @@ jobs:
                 for folderName, subfolders, filenames in os.walk(base_path):
                       for filename in filenames:
                           filePath = os.path.join(folderName, filename)
-                          zipObj.write(filePath, basename(filePath))
+                          zipObj.write(filePath, f"./")
         shell: python
         
       - name: Create Github Release
