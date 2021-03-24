@@ -21,7 +21,7 @@ jobs:
       - name: Create base zip file
         run: |
           import os 
-          import zipfile36 as zipfile
+          import zipfile36 as ZipFile
           from pathlib import Path
        
           base_path = Path(f"./P008165/P008165.opf/base")
