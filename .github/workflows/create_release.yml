@@ -21,7 +21,7 @@ jobs:
         run: pip3 install openpecha
       
       - name: Install Zipfile
-        run: pip3 install zip-files
+        run: pip install zipfile36
 
       - name: Create base zip file
         run: |
@@ -39,7 +39,8 @@ jobs:
                       for filename in filenames:
                           filePath = os.path.join(folderName, filename)
                           zipObj.write(filePath, basename(filePath))
-        
+        shell: python
+
       - name: Create Github Release
         id: create_release
         uses: actions/create-release@v1
