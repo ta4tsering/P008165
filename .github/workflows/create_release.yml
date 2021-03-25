@@ -31,8 +31,8 @@ jobs:
                 for folderName, subfolders, filenames in os.walk(base_path):
                       for filename in filenames:
                           filePath = os.path.join(folderName, filename)
-                          zipObj.write(filePath, ouput_path)
-                          
+                          zipObj.write(filePath, basename(filePath))
+                          print(basename(filePath))
         shell: python
         
       - name: Create Github Release
@@ -51,7 +51,7 @@ jobs:
           GITHUB_TOKEN: ${{  secrets.GITHUB_TOKEN }}
         with: 
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: /home/runner/work/base.zip
+          asset_path: ~/runner/work/base.zip
           asset_name: base-v${{ github.run_number }}.zip
           asset_content_type: text/zip
 
