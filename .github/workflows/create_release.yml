@@ -34,7 +34,7 @@ jobs:
                           zipObj.write(filePath, basename(filePath))
 
           if __name__=="__main__":
-              base_path = Path(f'./P008165/P008165.opf/base')
+              base_path = Path(f'../P008165/P008165.opf/base')
               create_base_zip(base_path)
                           
         shell: python
