@@ -23,7 +23,7 @@ jobs:
       - name: Create base zip file
         run: |
           import os 
-          from zipfile36 import ZipFile as zipfile
+          from zipfile36 import ZipFile
           from pathlib import Path
        
           filePaths = []
@@ -38,10 +38,9 @@ jobs:
           for fileName in filePaths:
             print(fileName)  
 
-          zip_file = zipfile.ZipFile(dir_name+'.zip', 'w')
-          with zip_file:
+          with ZipFile(dir_name+'.zip', 'w') as zip:
             for file in filePaths:
-              zip_file.write(file)
+              zip.write(file)
                           
         shell: python
         
