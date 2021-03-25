@@ -28,13 +28,14 @@ jobs:
        
           base_path = Path(f"./P008165/P008165.opf/base")
           output_path = Path(f"/home")
+          print("TAshi tsering")
 
           with ZipFile('base.zip', 'w') as zipObj:
                 for folderName, subfolders, filenames in os.walk(base_path):
                       for filename in filenames:
                           filePath = os.path.join(folderName, filename)
                           zipObj.write(filePath, output_path)
-                          print("TAshi tsering")
+                          
         shell: python
         
       - name: Create Github Release
