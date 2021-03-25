@@ -25,13 +25,13 @@ jobs:
           from pathlib import Path
        
           base_path = Path(f"./P008165/P008165.opf/base")
-          ouput_path = Path(f"/home")
+          output_path = Path(f"/home")
 
           with ZipFile('base.zip', 'w') as zipObj:
                 for folderName, subfolders, filenames in os.walk(base_path):
                       for filename in filenames:
                           filePath = os.path.join(folderName, filename)
-                          zipObj.write(filePath, ouput_path)
+                          zipObj.write(filePath, output_path)
                           print(output_path)
         shell: python
         
