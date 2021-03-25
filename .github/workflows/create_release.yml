@@ -32,10 +32,12 @@ jobs:
           for root, directories, files in os.walk(dir_name):
             for filename in files:
                 filePath = os.path.join(root, filename)
+                print(filePath)
                 filePaths.append(filePath)         
 
           with ZipFile(dir_name+'.zip', 'w') as zip:
             for file in filePaths:
+              print(file)
               zip.write(file)
                           
         shell: python
