@@ -9,10 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Making Directory
-         run: |
-          dir=$(pwd)
-          echo $dir
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
