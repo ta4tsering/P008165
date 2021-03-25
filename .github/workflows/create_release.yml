@@ -29,9 +29,8 @@ jobs:
           from pathlib import Path
        
           base_path = Path(f"./P008165/P008165.opf/base")
-          path = Path(f"./base")
-
-          print()
+          path = os.getcwd()
+          print(path)
 
           with ZipFile('base.zip', 'w') as zipObj:
                 for folderName, subfolders, filenames in os.walk(base_path):
