@@ -26,16 +26,26 @@ jobs:
           from os.path import basename
           from pathlib import Path
           
-          def create_base_zip(base_path):
-              with ZipFile('base.zip', 'w') as zipObj:
+          def _mkdir(path):
+            path.mkdir(exist_ok=True, parents=True)
+            return path
+
+          def create_zip(base_path, name):
+              with ZipFile(name, 'w') as zipObj:
                   for folderName, subfolders, filenames in os.walk(base_path):
                       for filename in filenames:
                           filePath = os.path.join(folderName, filename)
                           zipObj.write(filePath, basename(filePath))
 
           if __name__=="__main__":
+              opf_path = Path(f'../P008165/P008165.opf')
               base_path = Path(f'../P008165/P008165.opf/base')
-              create_base_zip(base_path)
+              hfml_path = "./output/publication"
+              hfml_path = mkdir(hfml_path)
+              create_zip(base_path, 'base.zip')
+              serializer = HFMLSerializer(opf_path, layers=["Pagination"])
+              serializer.serialize(hfml_path)
+              create_zip(hfml_path, 'hfml.zip')
                           
         shell: python
         
@@ -49,7 +59,7 @@ jobs:
           release_name: Release ${{ github.run_number }}
           draft: false
           prerelease: false
-      - name: upload Release assets
+      - name: upload base assets
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{  secrets.GITHUB_TOKEN }}
@@ -57,4 +67,13 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./base.zip
           asset_name: base-v${{ github.run_number }}.zip
+          asset_content_type: text/zip
+      - name: upload hfml assets
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{  secrets.GITHUB_TOKEN }}
+        with: 
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./hfml.zip
+          asset_name: hfml-v${{ github.run_number }}.zip
           asset_content_type: text/zip
