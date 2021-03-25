@@ -33,7 +33,7 @@ jobs:
                       for filename in filenames:
                           filePath = os.path.join(folderName, filename)
                           zipObj.write(filePath, basename(filePath))
-                          print(basename(filePath))
+                          print(filePath)
 
           if __name__=="__main__":
               base_path = Path(f'../P008165/P008165.opf/base')
@@ -57,7 +57,7 @@ jobs:
           GITHUB_TOKEN: ${{  secrets.GITHUB_TOKEN }}
         with: 
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: /home/base.zip
+          asset_path: ./base.zip
           asset_name: base-v${{ github.run_number }}.zip
           asset_content_type: text/zip
 
