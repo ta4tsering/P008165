@@ -23,7 +23,7 @@ jobs:
       - name: Create base zip file
         run: |
           import os 
-          from zipfile36 import ZipFile
+          from zipfile36 import ZipFile as zipfile
           from pathlib import Path
        
           filePaths = []
