@@ -18,7 +18,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install openpecha zipfile36
+          pip install zipfile36
 
       - name: Create base zip file
         run: |
@@ -26,20 +26,22 @@ jobs:
           from zipfile36 import ZipFile
           from pathlib import Path
        
-          base_path = Path(f"./P008165/P008165.opf/base")
-          output_path = Path(f"/home")
-          
+          filePaths = []
+          dir_name = 'base'
 
-          with ZipFile('base.zip', 'w') as zipObj:
-                print("TAshi tsering 1")
-                for folderName, subfolders, filenames in os.walk(base_path):
-                      print("TAshi tsering 2")
-                      for filename in filenames:
-                          print("TAshi tsering 3")
-                          filePath = os.path.join(folderName, filename)
-                          print("TAshi tsering 4")
-                          zipObj.write(filePath, output_path)
-                          print("TAshi tsering 5")
+          for root, directories, files in os.walk(dir_name):
+            for filename in files:
+                filePath = os.path.join(root, filename)
+                filePaths.append(filePath)       
+        
+          print('The following list of files will be zipped:')
+          for fileName in filePaths:
+            print(fileName)  
+
+          zip_file = zipfile.ZipFile(dir_name+'.zip', 'w')
+          with zip_file:
+            for file in filePaths:
+              zip_file.write(file)
                           
         shell: python
         
