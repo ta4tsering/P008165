@@ -28,16 +28,17 @@ jobs:
        
           filePaths = []
           dir_name = 'base'
-
+          print("tashi 0")
           for root, directories, files in os.walk(dir_name):
+            print("TAshi 1")
             for filename in files:
                 filePath = os.path.join(root, filename)
                 print(filePath)
                 filePaths.append(filePath)         
-
+          print("tashi 2")
           with ZipFile(dir_name+'.zip', 'w') as zip:
+            print('tashi 3')
             for file in filePaths:
-              print(file)
               zip.write(file)
                           
         shell: python
