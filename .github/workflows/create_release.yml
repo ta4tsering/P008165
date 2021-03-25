@@ -25,14 +25,14 @@ jobs:
           from pathlib import Path
        
           base_path = Path(f"./P008165/P008165.opf/base")
-          ouput_path = Path(f"/home/runner/work")
+          ouput_path = Path(f"/home")
 
           with ZipFile('base.zip', 'w') as zipObj:
                 for folderName, subfolders, filenames in os.walk(base_path):
                       for filename in filenames:
                           filePath = os.path.join(folderName, filename)
-                          zipObj.write(filePath, basename(filePath))
-                          print(basename(filePath))
+                          zipObj.write(filePath, ouput_path)
+                          print(output_path)
         shell: python
         
       - name: Create Github Release
@@ -51,7 +51,7 @@ jobs:
           GITHUB_TOKEN: ${{  secrets.GITHUB_TOKEN }}
         with: 
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ~/runner/work/base.zip
+          asset_path: /home/base.zip
           asset_name: base-v${{ github.run_number }}.zip
           asset_content_type: text/zip
 
