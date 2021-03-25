@@ -9,7 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: |
+      - name: Making Directory
+         run: |
           dir=$(pwd)
           echo $dir
       - name: Set up Python ${{ matrix.python-version }}
@@ -29,7 +30,9 @@ jobs:
        
           base_path = Path(f"./P008165/P008165.opf/base")
           path = Path(f"./base")
-             
+
+          print()
+
           with ZipFile('base.zip', 'w') as zipObj:
                 for folderName, subfolders, filenames in os.walk(base_path):
                       for filename in filenames:
