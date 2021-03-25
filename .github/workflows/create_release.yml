@@ -18,8 +18,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install Openpecha, zipfile36
-
+          pip install zipfile36
       - name: Create base zip file
         run: |
           import os 
@@ -33,35 +32,11 @@ jobs:
                       for filename in filenames:
                           filePath = os.path.join(folderName, filename)
                           zipObj.write(filePath, basename(filePath))
+                          print(filePath)
 
           if __name__=="__main__":
-              base_path = Path(f'../P008165/P008165.opf/base')
+              base_path = Path(f'./P008165/P008165.opf/base')
               create_base_zip(base_path)
-                          
-        shell: python
-
-      - name: Create hfml zip file
-        run: |
-          import os 
-          from openpecha.serializers import HFMLSerializer
-          from zipfile36 import ZipFile
-          from os.path import basename
-          from pathlib import Path
-  
-          def create_base_zip(base_path):
-              with ZipFile('hfml.zip', 'w') as zipObj:
-                  for folderName, subfolders, filenames in os.walk(base_path):
-                      for filename in filenames:
-                          filePath = os.path.join(folderName, filename)
-                          zipObj.write(filePath, basename(filePath))
-
-          if __name__=="__main__":
-              opf_path = Path(f'../P008165/P008165.opf')
-              hfml_path = './base'
-              serializer = HFMLSerializer(opf_path, layers=["Pagination"])
-              serializer.serialize(hfml_path)
-              hfml_output_path = Path(f'./P008165')
-              create_hfml_zip(hfml_output_path)
                           
         shell: python
         
@@ -75,7 +50,7 @@ jobs:
           release_name: Release ${{ github.run_number }}
           draft: false
           prerelease: false
-      - name: upload base assets
+      - name: upload Release assets
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{  secrets.GITHUB_TOKEN }}
@@ -84,15 +59,3 @@ jobs:
           asset_path: ./base.zip
           asset_name: base-v${{ github.run_number }}.zip
           asset_content_type: text/zip
-      - name: upload hfml assets
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{  secrets.GITHUB_TOKEN }}
-        with: 
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./hfml.zip
-          asset_name: hfml-v${{ github.run_number }}.zip
-          asset_content_type: text/zip
-
-
-    
