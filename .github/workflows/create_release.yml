@@ -28,13 +28,18 @@ jobs:
        
           base_path = Path(f"./P008165/P008165.opf/base")
           output_path = Path(f"/home")
-          print("TAshi tsering")
+          
 
           with ZipFile('base.zip', 'w') as zipObj:
+                print("TAshi tsering 1")
                 for folderName, subfolders, filenames in os.walk(base_path):
+                      print("TAshi tsering 2")
                       for filename in filenames:
+                          print("TAshi tsering 3")
                           filePath = os.path.join(folderName, filename)
+                          print("TAshi tsering 4")
                           zipObj.write(filePath, output_path)
+                          print("TAshi tsering 5")
                           
         shell: python
         
