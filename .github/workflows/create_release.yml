@@ -25,6 +25,7 @@ jobs:
           from zipfile36 import ZipFile
           from os.path import basename
           from pathlib import Path
+          from openpecha.serializers import HFMLSerializer
           
           def _mkdir(path):
             path.mkdir(exist_ok=True, parents=True)
@@ -41,7 +42,7 @@ jobs:
               opf_path = Path(f'../P008165/P008165.opf')
               base_path = Path(f'../P008165/P008165.opf/base')
               hfml_path = "./output/publication"
-              hfml_path = mkdir(hfml_path)
+              hfml_path = _mkdir(hfml_path)
               create_zip(base_path, 'base.zip')
               serializer = HFMLSerializer(opf_path, layers=["Pagination"])
               serializer.serialize(hfml_path)
