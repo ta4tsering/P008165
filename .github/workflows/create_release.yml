@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - run: mkdir -p ./base
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
@@ -26,14 +27,13 @@ jobs:
        
           base_path = Path(f"./P008165/P008165.opf/base")
           path = Path(f"./base")
-          
-          path.mkdir(exist_ok=True, parents=True)
              
           with ZipFile('base.zip', 'w') as zipObj:
                 for folderName, subfolders, filenames in os.walk(base_path):
                       for filename in filenames:
                           filePath = os.path.join(folderName, filename)
-                          zipObj.write(filePath, path)
+                          zipObj.write(filePath, f'./base')
+                          
         shell: python
         
       - name: Create Github Release
