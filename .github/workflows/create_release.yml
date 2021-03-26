@@ -1,7 +1,9 @@
 name: CI
 on:
   push:
-    branches: [ main ]
+    paths:
+    - 'P008165/P008165.opf/**'
+    # branches: [ main ]
   workflow_dispatch:
 jobs:
   release-project:
