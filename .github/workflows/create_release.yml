@@ -34,13 +34,23 @@ jobs:
                           filePath = os.path.join(folderName, filename)
                           zipObj.write(filePath, basename(filePath))
 
+          def write_hfml(results,hfml_path):
+              for vol_num, result in enumerate(results, 1):
+                  output = results[f'{result}']
+                  out_fn = Path(f"{hfml_path}/{result}.txt")
+                  out_fn.write_text(output)
+              print("Done")
+
+
           if __name__=="__main__":
               opf_path = Path(f'../P008165/P008165.opf')
               base_path = Path(f'../P008165/P008165.opf/base')
               hfml_path = f"./output/publication"
               create_zip(base_path, 'base.zip')
               serializer = HFMLSerializer(opf_path, layers=["Pagination"])
-              serializer.serialize(hfml_path)
+              serializer.apply_layers()
+              results = serializer.get_result()
+              write_hfml(results, hfml_path)
               create_zip(hfml_path, 'hfml.zip')
                           
         shell: python
