@@ -74,7 +74,7 @@ jobs:
         with: 
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./base.zip
-          asset_name: base-v${{ github.run_number }}.zip
+          asset_name: base.zip
           asset_content_type: text/zip
       - name: upload hfml assets
         uses: actions/upload-release-asset@v1
@@ -83,5 +83,5 @@ jobs:
         with: 
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./hfml.zip
-          asset_name: hfml-v${{ github.run_number }}.zip
+          asset_name: hfml.zip
           asset_content_type: text/zip
