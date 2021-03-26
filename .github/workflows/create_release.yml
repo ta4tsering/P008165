@@ -19,7 +19,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install zipfile36 openpecha
-      - name: Create base zip file
+      - name: Create zip file for text and hfml
         run: |
           import os 
           from zipfile36 import ZipFile
@@ -40,7 +40,6 @@ jobs:
                   out_fn = Path(f"{hfml_path}/{result}.txt")
                   out_fn.write_text(output)
               print("Done")
-
 
           if __name__=="__main__":
               opf_path = Path(f'../P008165/P008165.opf')
