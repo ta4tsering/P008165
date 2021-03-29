@@ -54,8 +54,9 @@ jobs:
               print("Done")
 
           if __name__=="__main__":
-              opf_path = Path(f'../P008165/P008165.opf')
-              base_path = Path(f'../P008165/P008165.opf/base')
+              pecha_id = Path.cwd().name
+              opf_path = Path(f'../{pecha_id}/{pecha_id}.opf')
+              base_path = Path(f'../{pecha_id}/{pecha_id}.opf/base')
               hfml_path = Path(f"./output/publication")
               hfml_path.mkdir(exist_ok=True, parents=True)
               create_zip(base_path, 'base.zip')
