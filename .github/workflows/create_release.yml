@@ -2,7 +2,7 @@ name: CI
 on:
   push:
     paths:
-    - 'P008165/P008165.opf/**'
+    - 'main'
     # branches: [ main ]
   workflow_dispatch:
 jobs:
@@ -36,11 +36,21 @@ jobs:
                           filePath = os.path.join(folderName, filename)
                           zipObj.write(filePath, basename(filePath))
 
-          def write_hfml(results,hfml_path):
-              for vol_num, result in enumerate(results, 1):
-                  output = results[f'{result}']
-                  out_fn = Path(f"{hfml_path}/{result}.txt")
-                  out_fn.write_text(output)
+          def get_clean_hfml(lines):
+              new_line = []
+              new_content = ""
+              for num, line in enumerate(lines,1):
+                  if  num % 2 != 0:
+                      new_line = re.sub(f"(\[\.\d+\])", "", line )
+                      new_content += new_line
+                      new_line = []
+                  else:
+                      new_content += "\n"
+              return new_content
+
+          def write_hfml(content, hfml_path, vol_num):
+              out_fn = Path(f"{hfml_path}/{vol_vum}.txt")
+              out_fn.write_text(content)
               print("Done")
 
           if __name__=="__main__":
@@ -52,7 +62,12 @@ jobs:
               serializer = HFMLSerializer(opf_path, layers=["Pagination"])
               serializer.apply_layers()
               results = serializer.get_result()
-              write_hfml(results, hfml_path)
+              hfml = results
+              for num, vol_num in enumerate(hfml,1):
+                  content = hfml[f'{vol_num}']
+                  lines = re.split(f"(\\\n)", content)
+                  new_hfml = get_clean_hfml(lines)
+                  write_hfml(new_hfml, hfml_path, vol_num)
               create_zip(hfml_path, 'hfml.zip')
                           
         shell: python
