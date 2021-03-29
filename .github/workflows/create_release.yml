@@ -149,10 +149,8 @@ jobs:
                 meta_yml_content = Path(f"./{pecha_id}/{pecha_id}.opf/meta.yml").read_text(encoding="utf-8")
                 meta_content = yaml.safe_load(meta_yml_content)
                 title = get_title(meta_content)
-                meta_path = Path(f"./metadata")
-                meta_path.mkdir(exist_ok=True, parents=True)
                 meta = create_json(title)
-                with open(f'{meta_path}/meta.json', 'w') as f:
+                with open('meta.json', 'w') as f:
                     json.dump(meta, f)
 
           shell: python
