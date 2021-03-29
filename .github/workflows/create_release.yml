@@ -49,7 +49,7 @@ jobs:
               return new_content
 
           def write_hfml(content, hfml_path, vol_num):
-              out_fn = Path(f"{hfml_path}/{vol_vum}.txt")
+              out_fn = Path(f"{hfml_path}/{vol_num}.txt")
               out_fn.write_text(content)
               print("Done")
 
