@@ -59,7 +59,8 @@ jobs:
               base_path = Path(f'../{pecha_id}/{pecha_id}.opf/base')
               hfml_path = Path(f"./output/publication")
               hfml_path.mkdir(exist_ok=True, parents=True)
-              create_zip(base_path, 'base.zip')
+              zip_name = f"{pecha_id}_base.zip"
+              create_zip(base_path, zip_name)
               serializer = HFMLSerializer(opf_path, layers=["Pagination"])
               serializer.apply_layers()
               results = serializer.get_result()
@@ -69,7 +70,8 @@ jobs:
                   lines = re.split(f"(\\\n)", content)
                   new_hfml = get_clean_hfml(lines)
                   write_hfml(new_hfml, hfml_path, vol_num)
-              create_zip(hfml_path, 'hfml.zip')
+              zip_name = f"{pecha_id}_hfml.zip"
+              create_zip(hfml_path, zip_name)
                           
         shell: python
         
