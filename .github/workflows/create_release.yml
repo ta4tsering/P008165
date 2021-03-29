@@ -91,8 +91,8 @@ jobs:
           GITHUB_TOKEN: ${{  secrets.GITHUB_TOKEN }}
         with: 
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./base.zip
-          asset_name: base.zip
+          asset_path: ./${{ github.event.repository.name }}_base.zip
+          asset_name: ${{ github.event.repository.name }}_base.zip
           asset_content_type: text/zip
       - name: upload hfml assets
         uses: actions/upload-release-asset@v1
@@ -100,6 +100,6 @@ jobs:
           GITHUB_TOKEN: ${{  secrets.GITHUB_TOKEN }}
         with: 
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./hfml.zip
-          asset_name: hfml.zip
+          asset_path: ./${{ github.event.repository.name }}_hfml.zip
+          asset_name: ${{ github.event.repository.name }}_hfml.zip
           asset_content_type: text/zip
