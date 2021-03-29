@@ -154,12 +154,12 @@ jobs:
                     json.dump(meta, f)
 
           shell: python
-    
-      - name: Fetching Local Repository
-        uses: actions/checkout@master
-      - name: Repo Sync
-        uses: kbrashears5/github-action-repo-sync@v1.0.0
-        with:
-          TYPE: npm
-          PATH: ./metadata/meta.json
-          TOKEN: ${{ secrets.ACTIONS }}
+  
+        - name: Fetching Local Repository
+          uses: actions/checkout@master
+        - name: Repo Sync
+          uses: kbrashears5/github-action-repo-sync@v1.0.0
+          with:
+            TYPE: npm
+            PATH: ./metadata/meta.json
+            TOKEN: ${{ secrets.ACTIONS }}
