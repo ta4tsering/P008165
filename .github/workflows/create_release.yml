@@ -108,6 +108,8 @@ jobs:
       name: Release different versions of Text file
       runs-on: ubuntu-latest
       steps:
+        - uses: actions/checkout@v2
+        
         - name: Set up Python ${{ matrix.python-version }}
           uses: actions/setup-python@v2
           with:
@@ -161,5 +163,5 @@ jobs:
           uses: kbrashears5/github-action-repo-sync@v1.0.0
           with:
             TYPE: npm
-            PATH: ./metadata/meta.json
+            PATH: ./meta.json
             TOKEN: ${{ secrets.ACTIONS }}
