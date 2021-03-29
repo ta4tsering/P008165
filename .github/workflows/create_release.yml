@@ -2,8 +2,7 @@ name: CI
 on:
   push:
     paths:
-    - 'main'
-    # branches: [ main ]
+    branches: [ main ]
   workflow_dispatch:
 jobs:
   release-project:
