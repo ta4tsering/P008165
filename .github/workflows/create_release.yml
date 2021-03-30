@@ -74,5 +74,5 @@ jobs:
           uses: kbrashears5/github-action-repo-sync@master
           with:
             TYPE: npm
-            PATH: package.json
+            PATH: work/package.json
             TOKEN: ${{ secrets.ACTIONS }}
