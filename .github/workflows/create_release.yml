@@ -10,8 +10,7 @@ jobs:
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v2
-
-          shell: python
+        
         - name: Repo Sync
           uses: kbrashears5/github-action-repo-sync@master
           with:
