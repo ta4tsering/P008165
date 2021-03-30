@@ -2,7 +2,7 @@ name: CI
 on:
   push:
     paths:
-    "P008165/.github/*"
+        "P008165/.github/*"
     # branches: [ main ]
   workflow_dispatch:
 jobs:
