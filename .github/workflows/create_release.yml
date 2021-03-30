@@ -54,9 +54,9 @@ jobs:
                 title = get_title(meta_content)
                 meta = create_json(title)
                 json_object = json.dumps(meta, indent = 4)
-                path_name = Path(f"../../")
+                path_name = Path(f"../../").name
                 print(path_name)
-                with open("../package.json", "w") as outfile:
+                with open("package.json", "w") as outfile:
                     outfile.write(json_object)
 
           shell: python
@@ -74,5 +74,5 @@ jobs:
           uses: kbrashears5/github-action-repo-sync@master
           with:
             TYPE: npm
-            PATH: ../package.json
+            PATH: package.json
             TOKEN: ${{ secrets.ACTIONS }}
