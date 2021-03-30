@@ -4,7 +4,6 @@ on:
     paths:
     "P008165/.github/*"
     # branches: [ main ]
-  workflow_dispatch:
 jobs:
   Add-discription:
       name: Release different versions of Text file
