@@ -56,7 +56,7 @@ jobs:
                 json_object = json.dumps(meta, indent = 4)
                 with open("package.json", "w") as outfile:
                     outfile.write(json_object)
-                    print(Path(json_object))
+                    print(Path(outfile))
 
           shell: python
 
