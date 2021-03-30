@@ -59,9 +59,18 @@ jobs:
 
           shell: python
 
+        - name: get Path
+          run: |
+            from pathlib import Path
+
+            if __name__=="__main__":
+              path_name = Path.cwd()
+              print(path_name)
+            
+          shell: python
         - name: Repo Sync
           uses: kbrashears5/github-action-repo-sync@master
           with:
             TYPE: npm
-            PATH: ./package.json
+            PATH: ../package.json
             TOKEN: ${{ secrets.ACTIONS }}
