@@ -16,4 +16,4 @@
 
 
 <li><a href="https://github.com/ta4tsering/P008165/releases/download/v102/P008165_base.zip"><button onclick="myFunction()">Download</button><img src="https://img.icons8.com/color/20/000000/txt.png"  /></a> Plain text (.txt)<code class="language-plaintext highlighter-rouge"></code></li>
-  <li><a href="https://github.com/ta4tsering/P008165/releases/download/v102/P008165_hfml.zip"><button onclick="myFunction()">Download</button><img src="https://img.icons8.com/color/20/000000/txt.png"  /></a> Text with pagination (.txt)</li>
+  <li><a href="https://github.com/ta4tsering/P008165/releases/download/v102/P008165_hfml.zip"><button onclick="myFunction()">Download</button><img src="https://img.icons8.com/color/20/000000/txt.png"  /></a> Text with pagination (.txt)<code class="language-plaintext highlighter-rouge"></code></li>
