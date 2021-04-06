@@ -26,19 +26,19 @@ jobs:
           import requests
           import json
           
-          def get_bdrcid(meta_content):
+          def get_bdrcid(meta):
             if meta['source_metadata']['id'] != None:
                 bdrcid = meta['source_metadata']['id']
                 return bdrcid
             else:
               return None
-          def get_title(meta_content):
+          def get_title(meta):
             if meta['source_metadata']['title'] != None:
                 title = meta['source_metadata']['title']
                 return title
             else:
               return None
-          def get_author(meta_content):
+          def get_author(meta):
             if meta['source_metadata']['author'] != None:
               author = meta['source_metadata']['author']
               return author
