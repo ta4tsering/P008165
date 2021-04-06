@@ -15,7 +15,7 @@ jobs:
                 --request PATCH \
                 --data '{"name":"P008165", "description":"tashi delek"}' \
                 https://github.com/ta4tsering/P008165
-                
+        shell: bash                
 
 
 
