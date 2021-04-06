@@ -13,7 +13,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{  secrets.GITHUB_TOKEN }}
         run: |
-          curl  -H "Authorisation: bearer GITHUB_TOKEN"\
+          curl  -H "Authorisation: bearer ${{ secrets.GITHUB_TOKEN }}"\
                 -X PATCH \
                 https://api.github.com/repos/ta4tsering/P008165 \
                 -d '{"name":"P008165", "description":"welcome"}'                    
