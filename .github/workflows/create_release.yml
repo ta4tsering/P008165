@@ -1,17 +1,20 @@
 name: CI
+
 on:
   push:
-    paths:
     branches: [ main ]
   workflow_dispatch:
+  
 jobs:
   add-description:
     name: Running Environment
     runs-on: ubuntu-latest
     steps:
       - name: adding description
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          curl  -H "Authorization: bearer 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" \
+          curl  -H "Authorization: bearer ${GITHUB_TOKEN}" \
                 -X PATCH https://api.github.com/repos/ta4tsering/P008165 \
                 -d '{"name":"P008165", "description":"tashi"}'
 
