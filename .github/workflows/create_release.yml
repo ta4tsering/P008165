@@ -6,12 +6,15 @@ on:
   workflow_dispatch:
 jobs:
   add-description:
-    - name: Adding the description
-      run: |
-        curl  -X PATCH \
-              -H "Authorization: ${{  secrets.GITHUB_TOKEN }}" \
-              https://github.com/repos/ta4tsering/P008165 \
-              -d '{"name":"P008165", "description":"is the P008165"}' 
+    name: Adding 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Adding the description
+        run: |
+          curl  -X PATCH \
+                -H "Authorization: ${{  secrets.GITHUB_TOKEN }}" \
+                https://github.com/repos/ta4tsering/P008165 \
+                -d '{"name":"P008165", "description":"is the P008165"}' 
                 
 
 
