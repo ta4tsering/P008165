@@ -47,7 +47,7 @@ jobs:
             token = "${{env.GITHUB_TOKEN}}"
             headers = {"Authorization": f"bearer {token}"}
             pecha_id = Path.cwd().name
-            meta_yml_content = Path(f"./{pecha_id}/{pecha_id}.opf/meta.yml").read_text(encoding="utf-8")
+            meta_yml_content = Path(f"../{pecha_id}/{pecha_id}.opf/meta.yml").read_text(encoding="utf-8")
             meta_content = yaml.safe_load(meta_yml_content)
             bdrcid = get_bdrcid(meta_content)
             title = get_title(meta_content)
