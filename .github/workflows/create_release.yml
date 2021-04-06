@@ -10,12 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Adding the description
+        env:
+          GITHUB_TOKEN: ${{  secrets.GITHUB_TOKEN }}
         run: |
-          curl  -u ta4tsering https://github.com/api/v3/user \
+          curl  -H "Authorisation: bearer GITHUB_TOKEN"\
                 -X PATCH \
                 https://api.github.com/repos/ta4tsering/P008165 \
                 -d '{"name":"P008165", "description":"welcome"}'                    
-
+        
 
 
 
