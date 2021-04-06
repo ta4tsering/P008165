@@ -16,7 +16,7 @@ jobs:
           curl  -H "Authorization: ${{  secrets.GITHUB_TOKEN }}" \
                 --request PATCH \
                 --data '{"name":"P008165", "description":"tashi delek"}' \
-                https://api.github.com/ta4tsering/P008165
+                https://api.github.com/repos/ta4tsering/P008165
         shell: bash                
 
 
