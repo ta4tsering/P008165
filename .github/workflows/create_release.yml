@@ -14,7 +14,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Installing Dependencies
         run: |
-          pip install requests, pathlib
+          pip install requests pathlib
       - name: Adding the description
         env: 
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
