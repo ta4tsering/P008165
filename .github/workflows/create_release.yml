@@ -13,7 +13,7 @@ jobs:
         run: |
           sudo apt install curl
 
-          curl  -H "Authorization: ${{  secrets.GITHUB_TOKEN }}" \
+          curl  -H "Authorization: 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" \
                 --request PATCH \
                 --data '{"name":"P008165", "description":"tashi delek"}' \
                 https://api.github.com/repos/ta4tsering/P008165
