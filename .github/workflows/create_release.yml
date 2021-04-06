@@ -12,7 +12,7 @@ jobs:
       - name: Adding the description
         run: |
           curl  -X PATCH \
-                -H "Authorization: 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" \
+                -u ${{ secrets.GITHUB_TOKEN }} \
                 https://api.github.com/repos/ta4tsering/P008165 \
                 -d '{"name":"P008165", "description":"tashi delek"}'
                               
