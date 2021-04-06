@@ -28,6 +28,6 @@ jobs:
             headers = {"Authorization": f"bearer {token}"}
             data = {"description": "tashi P008165 la"}  
             r = requests.patch("https://api.github.com/repos/ta4tsering/P008165", headers=headers, data=json.dumps(data))
-            r.json()
+            print(f"{r.json()}")
         shell: python
 
