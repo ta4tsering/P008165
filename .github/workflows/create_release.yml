@@ -18,7 +18,7 @@ jobs:
           pip install requests
       - name: Adding the description
         env: 
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           import requests
           import json
@@ -26,7 +26,7 @@ jobs:
           if __name__=="__main__":
             token = "${{env.GITHUB_TOKEN}}"
             headers = {"Authorization": f"bearer {token}"}
-            data = {"description": "tashi P008165 la"}  
+            data = {"description": "tashi P008165"}  
             r = requests.patch("https://api.github.com/repos/ta4tsering/P008165", headers=headers, data=json.dumps(data))
             print(f"{r.json()}")
         shell: python
