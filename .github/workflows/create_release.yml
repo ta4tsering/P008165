@@ -11,8 +11,53 @@ jobs:
     steps:
       - name: adding description
         run: |
-          curl  -H "Authorization: bearer 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" \
-                -X PATCH https://api.github.com/repos/ta4tsering/P008165 \
-                -d '{"name":"P008165", "description":"tashi"}'
+          - uses: actions/checkout@v2
 
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Installing Dependencies
+        run: |
+          pip install requests
+      - name: Adding the description
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          import requests
+          import json
+
+          def get_bdrcid(meta_content):
+            if meta['source_metadata']['id'] != None:
+                bdrcid = meta['source_metadata']['id']
+                return bdrcid
+            else:
+              return None
+
+          def get_title(meta_content):
+            if meta['source_metadata']['title'] != None:
+                title = meta['source_metadata']['title']
+                return title
+            else:
+              return None
+
+          def get_author(meta_content):
+            if meta['source_metadata']['author'] != None:
+              author = meta['source_metadata']['author']
+              return author
+            else:
+              return None
+
+          if __name__=="__main__":
+            pecha_id = Path.cwd().name
+            meta_yml_content = Path(f"./{pecha_id}/{pecha_id}.opf/meta.yml").read_text(encoding="utf-8")
+            meta_content = yaml.safe_load(meta_yml_content)
+            bdrcid = get_bdrcid(meta_content)
+            title = get_title(meta_content)
+            author = get_author(meta_content)
+            token = ${GITHUB_TOKEN}
+            headers = {"Authorization": f"bearer {token}"}
+            data = {"description": "(f"{bdrcid}, {title}, {author}")"} 
+            json.dumps(data) 
+            r = requests.patch("https://api.github.com/repos/ta4tsering/P008165", headers=headers, data=data) 
 
