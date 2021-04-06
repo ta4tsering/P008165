@@ -24,7 +24,7 @@ jobs:
           import json
 
           if __name__=="__main__":
-            token = ${GITHUB_TOKEN}
+            token = "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"
             headers = {"Authorization": f"bearer {token}"}
             data = {"description": "tashi P008165 la"} 
             json.dumps(data) 
