@@ -138,7 +138,7 @@ jobs:
             else:
               return None
           def get_author(meta):
-            if meta['source_metadata']['author'] != None:
+            if meta['source_metadata']['author'] != '':
               author = meta['source_metadata']['author']
               return author
             else:
