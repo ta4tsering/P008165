@@ -1,18 +1,15 @@
-name: CI
+name: Create Release
+
 on:
   push:
-    paths:
     branches: [ main ]
   workflow_dispatch:
+  
 jobs:
   add-description:
     name: Running Environment
     runs-on: ubuntu-latest
     steps:
-      - name: adding description
-        run: |
-          - uses: actions/checkout@v2
-
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
