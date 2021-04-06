@@ -26,7 +26,7 @@ jobs:
           if __name__=="__main__":
             token = "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"
             headers = {"Authorization": f"bearer {token}"}
-            data = {"description": "tashi P008165 la"} 
-            json.dumps(data) 
-            r = requests.patch("https://api.github.com/repos/ta4tsering/P008165", headers=headers, data=data) 
+            data = {"description": "tashi P008165 la"}  
+            r = requests.patch("https://api.github.com/repos/ta4tsering/P008165", headers=headers, data=json.dumps(data))
+        shell: python
 
