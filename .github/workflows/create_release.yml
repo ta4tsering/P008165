@@ -12,11 +12,11 @@ jobs:
       - name: Adding the description
         run: |
           sudo apt install curl
-          
+
           curl  -H "Authorization: ${{  secrets.GITHUB_TOKEN }}" \
                 --request PATCH \
                 --data '{"name":"P008165", "description":"tashi delek"}' \
-                https://github.com/ta4tsering/P008165
+                https://api.github.com/ta4tsering/P008165
         shell: bash                
 
 
