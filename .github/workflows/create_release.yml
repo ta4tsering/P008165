@@ -11,10 +11,10 @@ jobs:
     steps:
       - name: Adding the description
         run: |
-          curl  -X PATCH \
-                -H "Authorization: ${{  secrets.GITHUB_TOKEN }}" \
-                https://github.com/repos/ta4tsering/P008165 \
-                -d '{"name":"P008165", "description":"is the P008165"}' 
+          curl  -H "Authorization: ${{  secrets.GITHUB_TOKEN }}" \
+                --request PATCH \
+                --data '{"name":"P008165", "description":"tashi delek"}' \
+                https://github.com/repos/ta4tsering/P008165
                 
 
 
