@@ -24,7 +24,7 @@ jobs:
           import json
 
           if __name__=="__main__":
-            token = "${GITHUB_TOKEN}"
+            token = f"${GITHUB_TOKEN}"
             headers = {"Authorization": f"bearer {token}"}
             data = {"description": "tashi P008165 la"}  
             r = requests.patch("https://api.github.com/repos/ta4tsering/P008165", headers=headers, data=json.dumps(data))
