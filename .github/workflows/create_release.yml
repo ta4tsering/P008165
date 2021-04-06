@@ -13,7 +13,7 @@ jobs:
         run: |
           curl  -H "Authorization: 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" \
                 --request PATCH https://api.github.com/repos/ta4tsering/P008165
-                --data '{"name":"P008165", "description":"tashi delek"}' \
+                --data '{"name":"P008165", "description":"tashi delek"}'
                 
         shell: bash                
 
