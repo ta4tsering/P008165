@@ -11,10 +11,10 @@ jobs:
     steps:
       - name: Adding the description
         run: |
-          curl  -X PATCH \
-                -H "Accept: application/vnd.github.v3+json" \
+          curl  -H "Authorisation: bearer ${{  secrets.GITHUB_TOKEN }}\
+                -X PATCH \
                 https://api.github.com/repos/ta4tsering/P008165 \
-                -d '{"name":"P008165", "description":"tashi delek"}'
+                -d '{"name":"P008165", "description":"welcome to P008165"}'
                               
 
 
