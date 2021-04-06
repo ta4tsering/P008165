@@ -14,13 +14,13 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Installing Dependencies
         run: |
-          pip install requests pathlib PyYAML
+          pip install requests pathlib 
       - name: Adding the description
         env: 
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           from pathlib import Path
-          from PyYAML import yaml
+          import yaml
           import requests
           import json
           
