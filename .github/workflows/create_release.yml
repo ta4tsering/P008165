@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Adding the description
         run: |
-          curl  -u ta4tsering http(s)://[hostname]/api/v3/user\
+          curl  -u ta4tsering http(s)://github.com/api/v3/user\
                 -X PATCH \
                 https://api.github.com/repos/ta4tsering/P008165 \
                 -d '{"name":"P008165", "description":"welcome"}'                    
