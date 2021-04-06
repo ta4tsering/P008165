@@ -153,7 +153,10 @@ jobs:
             bdrcid = get_bdrcid(meta_content)
             title = get_title(meta_content)
             author = get_author(meta_content)
-            data = {"description": f"{bdrcid}, {title}, {author}"}  
+            if author != None:
+              data = {"description": f"{bdrcid}, {title}, {author}"}
+            else:
+              data = {"description": f"{bdrcid}, {title}"}
             r = requests.patch("https://api.github.com/repos/ta4tsering/P008165", headers=headers, data=json.dumps(data))
         shell: python
 
