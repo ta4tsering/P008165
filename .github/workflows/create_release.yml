@@ -104,10 +104,6 @@ jobs:
           asset_name: ${{ github.event.repository.name }}_hfml.zip
           asset_content_type: text/zip
 
-  add-description:
-    name: Release different versions of Text file
-    runs-on: ubuntu-latest
-    steps:
       - name: Adding the description
         run: |
           curl  -H "Authorization: ${{  secrets.GITHUB_TOKEN }}" \
