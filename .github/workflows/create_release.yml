@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Adding the description
         run: |
-          curl  -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}"\
+          curl  -H "Authorization: bearer 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"\
                 -X PATCH \
                 https://api.github.com/repos/ta4tsering/P008165 \
                 -d '{"name":"P008165", "description":"welcome P008165"}'                    
