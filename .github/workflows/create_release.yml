@@ -10,11 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Adding the description
-        env:
-          GITHUB_TOKEN: ${{  secrets.GITHUB_TOKEN }}
         run: |
           curl  -X PATCH \
-                -u $GITHUB_TOKEN:x-oauth-basic \
+                -H "Accept: application/vnd.github.v3+json"
                 https://api.github.com/repos/ta4tsering/P008165 \
                 -d '{"name":"P008165", "description":"tashi delek"}'
                               
