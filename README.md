@@ -1,4 +1,4 @@
-|OpenPecha | P008165
+|Openpecha | P008165
 |---	   |---	
 |Title:    |ཚད་མ་རིགས་གཞུང་རྒྱ་མཚོ།
 |   Author:   |
