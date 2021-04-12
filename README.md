@@ -12,6 +12,9 @@
 :Book ID: 1399
 
 
+:Title: - ཚད་མ་རིགས་གཞུང་རྒྱ་མཚོ།
+:Author: 
+:BDRC ID:W1KG17431
 ## Title
 	
 
