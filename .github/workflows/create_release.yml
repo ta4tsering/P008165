@@ -1,6 +1,8 @@
 name: Create Release
 on:
   push:
+    paths:
+      'P008165/P008165.opf/**'
     branches: [ main ]
   workflow_dispatch:
 jobs:
