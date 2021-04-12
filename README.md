@@ -3,8 +3,8 @@
 |---       |---
 |Author:   |		        
 |BDRC ID:  |W1KG17431  
-|Plain Text:|<a href='https://github.com/ta4tsering/P008165/releases/download/v102/P008165_base.zip' class='button'>Download</a>
-
+|Plain Text:|![](https://img.icons8.com/color/20/000000/txt.png) <a href='https://github.com/ta4tsering/P008165/releases/download/v102/P008165_base.zip' class='button'>Download</a>
+|Text with Pagination:|<a href='https://github.com/ta4tsering/P008165/releases/download/v102/P008165_hfml.zip' class='button'>Download</a>
 
 
 
