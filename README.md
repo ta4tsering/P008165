@@ -1,24 +1,10 @@
-:Title: Anna Karenina
-:Author: Tolstoy, Leo, graf, 1828-1910
-:Language: en
-:LCC:
-    | PG
-:Subject:
-    | Russia -- Fiction
-    | Love stories
-    | Didactic fiction
-    | Married women -- Fiction
-    | Adultery -- Fiction
-:Book ID: 1399
 
-
-
-|Title:    |ཚད་མ་རིགས་གཞུང་རྒྱ་མཚོ |
-|---       |---         |
-|Author:   |		|
-|---       |---         |
-|BDRC ID:   |W1KG17431  |
-|---       |---         |
+|Title:    |ཚད་མ་རིགས་གཞུང་རྒྱ་མཚོ 
+|---       |---         
+|Author:   |		
+|---       |---         
+|BDRC ID:   |W1KG17431  
+|---       |---         
 
 
 
