@@ -1,9 +1,7 @@
 name: Create Release
 on:
-#   push:
-#     paths:
-#       'P008165/P008165.opf/**'
-#     branches: [ main ]
+  push:
+    branches: [ master ]
   workflow_dispatch:
 jobs:
   release-project:
@@ -57,7 +55,7 @@ jobs:
           if __name__=="__main__":
               pecha_id = Path.cwd().name
               opf_path = Path(f'../{pecha_id}/{pecha_id}.opf')
-              base_path = Path(f'../{pecha_id}/{pecha_id}.opf/base')
+              base_path = Path(f'{opf_path}/base')
               hfml_path = Path(f"./output/publication")
               hfml_path.mkdir(exist_ok=True, parents=True)
               zip_name = f"{pecha_id}_base.zip"
