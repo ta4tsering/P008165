@@ -58,7 +58,7 @@ jobs:
               base_path = Path(f'{opf_path}/base')
               hfml_path = Path(f"./output/publication")
               hfml_path.mkdir(exist_ok=True, parents=True)
-              zip_name = f"{pecha_id}_base.zip"
+              zip_name = f"tsʰɛ.mə.rik.ɕũŋ.ɟ̊əm.dz̥o.zip"
               create_zip(base_path, zip_name)
               serializer = HFMLSerializer(opf_path, layers=["Pagination"])
               serializer.apply_layers()
@@ -90,7 +90,7 @@ jobs:
           GITHUB_TOKEN: ${{  secrets.GITHUB_TOKEN }}
         with: 
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./${{ github.event.repository.name }}_base.zip
+          asset_path: ./tsʰɛ.mə.rik.ɕũŋ.ɟ̊əm.dz̥o.zip
           asset_name: ${{ github.event.repository.name }}_base.zip
           asset_content_type: text/zip
       - name: upload hfml assets
