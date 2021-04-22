@@ -69,7 +69,7 @@ jobs:
                   lines = re.split(f"(\\\n)", content)
                   new_hfml = get_clean_hfml(lines)
                   write_hfml(new_hfml, hfml_path, vol_num)
-              zip_name = f"{pecha_id}_hfml.zip"
+              zip_name = f"tsʰɛ.mə.rik.ɕũŋ.ɟ̊əm.dz̥o.zip"
               create_zip(hfml_path, zip_name)
                           
         shell: python
@@ -99,6 +99,6 @@ jobs:
           GITHUB_TOKEN: ${{  secrets.GITHUB_TOKEN }}
         with:  
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./${{ github.event.repository.name }}_hfml.zip
-          asset_name: ${{ github.event.repository.name }}_hfml.zip
+          asset_path: ./tsʰɛ.mə.rik.ɕũŋ.ɟ̊əm.dz̥o.zip
+          asset_name: tsʰɛ.mə.rik.ɕũŋ.ɟ̊əm.dz̥o.zip
           asset_content_type: text/zip
