@@ -81,12 +81,12 @@ jobs:
         \    plain_path = Path(f\"./output/publication/plains\")\n    plain_path.mkdir(exist_ok=True,\
         \ parents=True)\n    meta_info, title, uid = get_meta_info(meta_data)\n  \
         \  change_file_name_plain(meta_info, opf_path, plain_path) \n    zip_name\
-        \ = f\"{pecha_id}.zip\"\n    create_zip(plain_path, zip_name)\n    pages_path\
+        \ = f\"{pecha_id}_plain.zip\"\n    create_zip(plain_path, zip_name)\n    pages_path\
         \ = Path(f\"./output/publication/pages\")\n    pages_path.mkdir(exist_ok=True,\
         \ parents=True)\n    serializer = HFMLSerializer(opf_path, layers=[\"Pagination\"\
         ])\n    serializer.apply_layers()\n    results = serializer.get_result()\n\
         \    pages = results\n    change_file_name_pages(pages, pages_path, meta_info)\n\
-        \    zip_name = f\"{pecha_id}.zip\"\n    create_zip(pages_path, zip_name)\n\
+        \    zip_name = f\"{pecha_id}_pages.zip\"\n    create_zip(pages_path, zip_name)\n\
         \                \n"
       shell: python
     - name: Create Github Release
@@ -105,7 +105,7 @@ jobs:
         GITHUB_TOKEN: ${{  secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./${{ github.event.repository.name }}.zip
+        asset_path: ./${{ github.event.repository.name }}_plain.zip
         asset_name: tshad_ma_rigs_gzhung_rgya_mtsho_plain_P008165.zip
         asset_content_type: text/zip
     - name: upload pages assets
@@ -114,6 +114,6 @@ jobs:
         GITHUB_TOKEN: ${{  secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./${{ github.event.repository.name }}.zip
+        asset_path: ./${{ github.event.repository.name }}_pages.zip
         asset_name: tshad_ma_rigs_gzhung_rgya_mtsho_pages_P008165.zip
         asset_content_type: text/zip
