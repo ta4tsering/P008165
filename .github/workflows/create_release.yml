@@ -1,104 +1,119 @@
-name: Create Release
-on:
-  push:
-    branches: [ main ]
-  workflow_dispatch:
+name: create release
+'on': push
 jobs:
   release-project:
     name: Release different versions of Text file
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: 'python -m pip install --upgrade pip
 
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
-        with:
-          python-version: ${{ matrix.python-version }}
+        pip install zipfile36 openpecha PyYAML
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install zipfile36 openpecha
-      - name: Create zip file for text and hfml
-        run: |
-          import os 
-          import re
-          from zipfile36 import ZipFile
-          from os.path import basename
-          from pathlib import Path
-          from openpecha.serializers import HFMLSerializer
-
-          def create_zip(base_path, name):
-              with ZipFile(name, 'w') as zipObj:
-                  for folderName, subfolders, filenames in os.walk(base_path):
-                      for filename in filenames:
-                          filePath = os.path.join(folderName, filename)
-                          zipObj.write(filePath, basename(filePath))
-
-          def get_clean_hfml(lines):
-              new_line = []
-              new_content = ""
-              for num, line in enumerate(lines,1):
-                  if  num % 2 != 0:
-                      new_line = re.sub(f"(\[\.\d+\])", "", line )
-                      new_content += new_line
-                      new_line = []
-                  else:
-                      new_content += "\n"
-              return new_content
-
-          def write_hfml(content, hfml_path, vol_num):
-              out_fn = Path(f"{hfml_path}/{vol_num}.txt")
-              out_fn.write_text(content)
-              print("Done")
-
-          if __name__=="__main__":
-              pecha_id = Path.cwd().name
-              opf_path = Path(f'../{pecha_id}/{pecha_id}.opf')
-              base_path = Path(f'{opf_path}/base')
-              hfml_path = Path(f"./output/publication")
-              hfml_path.mkdir(exist_ok=True, parents=True)
-              zip_name = f"tsʰɛ.mə.rik.ɕũŋ.ɟ̊əm.dz̥o.zip"
-              create_zip(base_path, zip_name)
-              serializer = HFMLSerializer(opf_path, layers=["Pagination"])
-              serializer.apply_layers()
-              results = serializer.get_result()
-              hfml = results
-              for num, vol_num in enumerate(hfml,1):
-                  content = hfml[f'{vol_num}']
-                  lines = re.split(f"(\\\n)", content)
-                  new_hfml = get_clean_hfml(lines)
-                  write_hfml(new_hfml, hfml_path, vol_num)
-              zip_name = f"tsʰɛ.mə.rik.ɕũŋ.ɟ̊əm.dz̥o.zip"
-              create_zip(hfml_path, zip_name)
-                          
-        shell: python
-        
-      - name: Create Github Release
-        id: create_release
-        uses: actions/create-release@v1
-        env: 
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: v${{ github.run_number }}
-          release_name: Release ${{ github.run_number }}
-          draft: false
-          prerelease: false
-      - name: upload base assets
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{  secrets.GITHUB_TOKEN }}
-        with: 
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./tsʰɛ.mə.rik.ɕũŋ.ɟ̊əm.dz̥o.zip
-          asset_name: ${{ github.event.repository.name }}_base.zip
-          asset_content_type: text/zip
-      - name: upload hfml assets
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{  secrets.GITHUB_TOKEN }}
-        with:  
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./tsʰɛ.mə.rik.ɕũŋ.ɟ̊əm.dz̥o.zip
-          asset_name: tsʰɛ.mə.rik.ɕũŋ.ɟ̊əm.dz̥o.zip
-          asset_content_type: text/zip
+        '
+    - name: Create zip file for plain and pages
+      run: "import os \nimport re\nimport yaml\nfrom zipfile36 import ZipFile\nfrom\
+        \ os.path import basename\nfrom pathlib import Path\nfrom openpecha.serializers\
+        \ import HFMLSerializer\n\n\ndef get_meta_info(meta_data):\n    uuid = meta_data['id'][:6]\n\
+        \    title = meta_data['source_metadata']['title']\n    volumes = meta_data['source_metadata']['volume']\n\
+        \    cur_text = {}\n    meta_info = {}\n    num = 1\n    for uid, vol_info\
+        \ in volumes.items():\n        image_group = vol_info['image_group_id']\n\
+        \        vol_num = vol_info['volume_number']\n        cur_text[num] = { \n\
+        \            'image_group': image_group,\n            'vol_num': vol_num\n\
+        \        }\n        meta_info.update(cur_text)\n        num += 1\n       \
+        \ cur_text = {}\n    return meta_info, title, uuid\ndef change_file_name_pages(pages,\
+        \ pages_path, meta_info):\n     for num, vol in enumerate(pages,1):\n    \
+        \    vol_num = vol[1:]\n        for info_num, meta in meta_info.items():\n\
+        \            vol = meta['vol_num']\n            if int(vol/10) == 0:\n   \
+        \             new_vol = f\"00{vol}\"\n                if new_vol == vol_num:\n\
+        \                    image_group = meta['image_group']\n                 \
+        \   content = pages[f'v{vol_num}']\n                    lines = re.split(f\"\
+        (\\\\\\n)\", content)\n                    pages_content = get_clean_pages(lines)\n\
+        \                    write_text(pages_content, pages_path, image_group, vol_num)\n\
+        \                    break\n            elif int(vol/100) == 0:\n        \
+        \        new_vol = f\"0{vol}\"\n                if new_vol == vol_num:\n \
+        \                   image_group = meta['image_group']\n                  \
+        \  content = pages[f'v{vol_num}']\n                    lines = re.split(f\"\
+        (\\\\\\n)\", content)\n                    pages_content = get_clean_pages(lines)\n\
+        \                    write_text(pages_content, pages_path, image_group, vol_num)\
+        \ \n                    break  \n            elif f\"{vol}\" == vol_num:\n\
+        \                image_group = meta['image_group']\n                content\
+        \ = pages[f'v{vol_num}']\n                lines = re.split(f\"(\\\\\\n)\"\
+        , content)\n                pages_content = get_clean_pages(lines)\n     \
+        \           write_text(pages_content, pages_path, image_group, vol_num) \n\
+        \                break\ndef change_file_name_plain(meta_info, opf_path, new_path):\n\
+        \    for file in os.listdir(f\"{opf_path}/base\"):\n        if file.endswith(\"\
+        .txt\"):\n            file_path = Path(f\"{opf_path}/base/{file}\")\n    \
+        \        file_name = file[1:-4]\n            content = Path(f'{file_path}').read_text(encoding='utf-8')\n\
+        \            for info_num, meta in meta_info.items():\n                vol\
+        \ = meta['vol_num']\n                if int(vol/10) == 0:\n              \
+        \      new_vol = f\"00{vol}\"\n                    if new_vol == file_name:\n\
+        \                        image_group = meta['image_group']\n             \
+        \           vol_num = file_name\n                        write_text(content,\
+        \ new_path, image_group, vol_num )    \n                        break\n  \
+        \              elif int(vol/100) == 0:\n                    new_vol = f\"\
+        0{vol}\"\n                    if new_vol == file_name:\n                 \
+        \       image_group = meta['image_group']\n                        vol_num\
+        \ = file_name\n                        write_text(content, new_path, image_group,\
+        \ vol_num )  \n                        break  \n                elif f\"{vol}\"\
+        \ == file_name:\n                    image_group = meta['image_group']\n \
+        \                   vol_num = file_name\n                    write_text(content,\
+        \ new_path, image_group, vol_num )    \n                    break\ndef create_zip(base_path,\
+        \ name):\n    with ZipFile(name, 'w') as zipObj:\n        for folderName,\
+        \ subfolders, filenames in os.walk(base_path):\n            for filename in\
+        \ filenames:\n                filePath = os.path.join(folderName, filename)\n\
+        \                zipObj.write(filePath, basename(filePath))\ndef get_clean_pages(lines):\n\
+        \    new_line = []\n    new_content = \"\"\n    for num, line in enumerate(lines,1):\n\
+        \        if  num % 2 != 0:\n            new_line = re.sub(f\"(\\[((.\\d+\\\
+        w)|(\\d+(a|b)\\.\\d+)|(\\.\\d+))\\])\", \"\", line )\n            new_content\
+        \ += new_line\n            new_line = []\n        else:\n            new_content\
+        \ += \"\\n\"\n    return new_content\ndef write_text(content, new_path, image_group,\
+        \ vol_num):\n    out_fn = Path(f\"{new_path}/v{vol_num}_{image_group}.txt\"\
+        )\n    out_fn.write_text(content)\n    \n    \nif __name__==\"__main__\":\n\
+        \    pecha_id = Path.cwd().name\n    opf_path = Path.cwd().resolve() / f\"\
+        {pecha_id}.opf\"\n    meta_content = Path(f'{opf_path}/meta.yml').read_text(encoding='utf-8')\n\
+        \    meta_data = yaml.safe_load(meta_content)\n    base_path = Path(f'{opf_path}/base')\n\
+        \    plain_path = Path(f\"./output/publication/plains\")\n    plain_path.mkdir(exist_ok=True,\
+        \ parents=True)\n    meta_info, title, uid = get_meta_info(meta_data)\n  \
+        \  change_file_name_plain(meta_info, opf_path, plain_path) \n    zip_name\
+        \ = f\"{pecha_id}.zip\"\n    create_zip(plain_path, zip_name)\n    pages_path\
+        \ = Path(f\"./output/publication/pages\")\n    pages_path.mkdir(exist_ok=True,\
+        \ parents=True)\n    serializer = HFMLSerializer(opf_path, layers=[\"Pagination\"\
+        ])\n    serializer.apply_layers()\n    results = serializer.get_result()\n\
+        \    pages = results\n    change_file_name_pages(pages, pages_path, meta_info)\n\
+        \    zip_name = f\"{pecha_id}.zip\"\n    create_zip(pages_path, zip_name)\n\
+        \                \n"
+      shell: python
+    - name: Create Github Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: v${{ github.run_number }}
+        release_name: Release ${{ github.run_number }}
+        draft: false
+        prerelease: false
+    - name: upload plain assets
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{  secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./${{ github.event.repository.name }}.zip
+        asset_name: tshad_ma_rigs_gzhung_rgya_mtsho_plain_P00816.zip
+        asset_content_type: text/zip
+    - name: upload pages assets
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{  secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./${{ github.event.repository.name }}.zip
+        asset_name: tshad_ma_rigs_gzhung_rgya_mtsho_pages_P00816.zip
+        asset_content_type: text/zip
