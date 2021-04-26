@@ -20,7 +20,7 @@ jobs:
       run: "import os \nimport re\nimport yaml\nfrom zipfile36 import ZipFile\nfrom\
         \ os.path import basename\nfrom pathlib import Path\nfrom openpecha.serializers\
         \ import HFMLSerializer\n\n\ndef get_meta_info(meta_data):\n    uuid = meta_data['id'][:6]\n\
-        \    title = meta_data['source_metadata']['title']\n    volumes = meta_data['source_metadata']['volume']\n\
+        \    title = meta_data['source_metadata']['title']\n    volumes = meta_data['source_metadata']['volumes']\n\
         \    cur_text = {}\n    meta_info = {}\n    num = 1\n    for uid, vol_info\
         \ in volumes.items():\n        image_group = vol_info['image_group_id']\n\
         \        vol_num = vol_info['volume_number']\n        cur_text[num] = { \n\
@@ -106,7 +106,7 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./${{ github.event.repository.name }}.zip
-        asset_name: tshad_ma_rigs_gzhung_rgya_mtsho_plain_P00816.zip
+        asset_name: tshad_ma_rigs_gzhung_rgya_mtsho_plain_P008165.zip
         asset_content_type: text/zip
     - name: upload pages assets
       uses: actions/upload-release-asset@v1
@@ -115,5 +115,5 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./${{ github.event.repository.name }}.zip
-        asset_name: tshad_ma_rigs_gzhung_rgya_mtsho_pages_P00816.zip
+        asset_name: tshad_ma_rigs_gzhung_rgya_mtsho_pages_P008165.zip
         asset_content_type: text/zip
