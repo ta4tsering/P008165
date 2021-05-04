@@ -114,7 +114,7 @@ jobs:
         http://purl.bdrc.io/graph/{work_id}.ttl\")\n          return ttl.text\n  \
         \    except:\n          print(' TTL not Found!!!')\n          return None\n\
         \ndef get_meta_info(meta_data):\n      work_id = meta_data['source_metadata']['id'][4:]\
-        \ \n      volumes = meta_data['source_metadata']['volume']\n      cur_text\
+        \ \n      volumes = meta_data['source_metadata']['volumes']\n      cur_text\
         \ = {}\n      meta_info = {}\n      num = 1\n      for uid, vol_info in volumes.items():\n\
         \          image_group = vol_info['image_group_id']\n          vol_num = vol_info['volume_number']\n\
         \          cur_text[num] = { \n              'image_group': image_group,\n\
