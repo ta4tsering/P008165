@@ -27,6 +27,10 @@ jobs:
         \        out_fn = Path(f\"{new_path}/v{vol_num}_{image_group}_{uid}.txt\"\
         )\n        out_fn.write_text(content)\n    else:\n        out_fn = Path(f\"\
         {new_path}/v{vol_num}_{volume_title}_{image_group}_{uid}.txt\")\n        out_fn.write_text(content)\n\
+        \ndef create_zip(base_path, name):\n    with ZipFile(name, 'w') as zipObj:\n\
+        \        for folderName, subfolders, filenames in os.walk(base_path):\n  \
+        \          for filename in filenames:\n                filePath = os.path.join(folderName,\
+        \ filename)\n                zipObj.write(filePath, basename(filePath))\n\n\
         \ndef get_clean_pages(lines):\n    new_line = []\n    new_content = \"\"\n\
         \    for num, line in enumerate(lines,1):\n        if  num % 2 != 0:\n   \
         \         new_line = re.sub(f\"(\\[((.\\d+\\w)|(\\d+(a|b)\\.\\d+)|(\\.\\d+))\\\
@@ -122,10 +126,10 @@ jobs:
         \    if meta_ttl != None:\n        vol_info, num  = parse_volume_info(meta_ttl,\
         \ work_id)\n        if num != None:\n            filename_info = get_file_name_info(vol_info,\
         \ meta_info, num)\n            meta_info = filename_info\n    change_file_name_plain(meta_info,\
-        \ opf_path, plain_path, False) \n    shutil.make_archive(f\"{pecha_id}_plain\"\
-        \ 'zip', plain_path)\n    pages = get_pages(opf_path)\n    change_file_name_pages(pages,\
-        \ pages_path, meta_info, False)\n    shutil.make_archive(f\"{pecha_id}_pages\"\
-        \ 'zip', pages_path)\n                \n"
+        \ opf_path, plain_path, False) \n    create_zip(plain_path, f\"{pecha_id}_plain.zip\"\
+        )\n    pages = get_pages(opf_path)\n    change_file_name_pages(pages, pages_path,\
+        \ meta_info, False)\n    create_zip(pages_path, f\"{pecha_id}_pages.zip\"\
+        )\n                \n"
       shell: python
     - name: Create Github Release
       id: create_release
