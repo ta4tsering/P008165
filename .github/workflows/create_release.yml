@@ -21,48 +21,49 @@ jobs:
         \ zipfile36 import ZipFile\nfrom os.path import basename\nfrom pathlib import\
         \ Path\nfrom openpecha.serializers import HFMLSerializer\nfrom rdflib import\
         \ Graph\nfrom rdflib.namespace import RDF, RDFS, SKOS, OWL, Namespace, NamespaceManager,\
-        \ XSD\n\ndef write_text(content, new_path, vol_num, volume_title, _type):\n\
-        \      if volume_title == None:\n          out_fn = Path(f\"{new_path}/v{vol_num}_{_type}.txt\"\
-        )\n          out_fn.write_text(content)\n      else:\n          out_fn = Path(f\"\
-        {new_path}/v{vol_num}_{volume_title}_{_type}.txt\")\n          out_fn.write_text(content)\n\
-        \ndef create_zip(base_path, name):\n      with ZipFile(name, 'w') as zipObj:\n\
-        \          for folderName, subfolders, filenames in os.walk(base_path):\n\
-        \              for filename in filenames:\n                  filePath = os.path.join(folderName,\
-        \ filename)\n                  zipObj.write(filePath, basename(filePath))\n\
-        \ndef get_clean_pages(lines, uid):\n      new_line = []\n      new_content\
-        \ = \"\"\n      for num, line in enumerate(lines,1):\n          if  num %\
-        \ 2 != 0:\n              new_line = re.sub(f\"(\\[((.\\d+\\w)|(\\d+(a|b)\\\
-        .\\d+)|(\\.\\d+))\\])\", \"\", line )\n              new_content += new_line\n\
-        \              new_line = []\n          else:\n              new_content +=\
-        \ \"\\n\"\n      new_content += f\"OpenPechaUUID: {uid}\"\n      return new_content\n\
-        \n\ndef change_file_name_pages(pages, pages_path, meta_info, vol_title):\n\
-        \      _type = \"pages\"\n      if vol_title == False:\n          for num,\
-        \ vol in enumerate(pages,1):\n              vol_num = vol[1:]\n          \
-        \    for info_num, meta in meta_info.items():\n                  vol = meta['vol_num']\n\
-        \                  new_vol = f\"{vol:03}\"\n                  if new_vol ==\
-        \ vol_num:\n                      uid = meta['uid']\n                    \
-        \  image_group = meta['image_group']\n                      content = pages[f'v{vol_num}']\n\
-        \                      lines = re.split(f\"(\\\\\\n)\", content)\n       \
-        \               pages_content = get_clean_pages(lines,uid)\n             \
-        \         write_text(pages_content, pages_path, vol_num, None, _type)\n  \
-        \                    break\n      elif vol_title == True:\n          for num,\
-        \ vol in enumerate(pages,1):\n              vol_num = vol[1:]\n          \
-        \    for info_num, meta in meta_info.items():\n                  vol = meta['vol_num']\n\
-        \                  new_vol = f\"{vol:03}\"\n                  if new_vol ==\
-        \ vol_num:\n                      uid = meta['uid']\n                    \
-        \  image_group = meta['image_group']\n                      volume_title =\
-        \ meta['title']\n                      content = pages[f'v{vol_num}']\n  \
-        \                    lines = re.split(f\"(\\\\\\n)\", content)\n         \
-        \             pages_content = get_clean_pages(lines, uid)\n              \
-        \        write_text(pages_content, pages_path, vol_num, volume_title, _type)\n\
-        \                      break\n\n\ndef get_pages(opf_path):\n      serializer\
-        \ = HFMLSerializer(opf_path, layers=[\"Pagination\"])\n      serializer.apply_layers()\n\
-        \      results = serializer.get_result()\n      return results\n\n\ndef change_file_name_plain(meta_info,\
-        \ opf_path, new_path, vol_title):\n      _type = \"plain\"\n      if vol_title\
-        \ == False:\n          for file in os.listdir(f\"{opf_path}/base\"):\n   \
-        \           if file.endswith(\".txt\"):\n                  file_path = Path(f\"\
-        {opf_path}/base/{file}\")\n                  file_name = file[1:-4]\n    \
-        \              content = Path(f'{file_path}').read_text(encoding='utf-8')\n\
+        \ XSD\n\nBDR = Namespace(\"http://purl.bdrc.io/resource/\")\nBDO = Namespace(\"\
+        http://purl.bdrc.io/ontology/core/\")\n\ndef write_text(content, new_path,\
+        \ vol_num, volume_title, _type):\n      if volume_title == None:\n       \
+        \   out_fn = Path(f\"{new_path}/v{vol_num}_{_type}.txt\")\n          out_fn.write_text(content)\n\
+        \      else:\n          out_fn = Path(f\"{new_path}/v{vol_num}_{volume_title}_{_type}.txt\"\
+        )\n          out_fn.write_text(content)\n\ndef create_zip(base_path, name):\n\
+        \      with ZipFile(name, 'w') as zipObj:\n          for folderName, subfolders,\
+        \ filenames in os.walk(base_path):\n              for filename in filenames:\n\
+        \                  filePath = os.path.join(folderName, filename)\n       \
+        \           zipObj.write(filePath, basename(filePath))\n\ndef get_clean_pages(lines,\
+        \ uid):\n      new_line = []\n      new_content = \"\"\n      for num, line\
+        \ in enumerate(lines,1):\n          if  num % 2 != 0:\n              new_line\
+        \ = re.sub(f\"(\\[((.\\d+\\w)|(\\d+(a|b)\\.\\d+)|(\\.\\d+))\\])\", \"\", line\
+        \ )\n              new_content += new_line\n              new_line = []\n\
+        \          else:\n              new_content += \"\\n\"\n      new_content\
+        \ += f\"OpenPechaUUID: {uid}\"\n      return new_content\n\n\ndef change_file_name_pages(pages,\
+        \ pages_path, meta_info, vol_title):\n      _type = \"pages\"\n      if vol_title\
+        \ == False:\n          for num, vol in enumerate(pages,1):\n             \
+        \ vol_num = vol[1:]\n              for info_num, meta in meta_info.items():\n\
+        \                  vol = meta['vol_num']\n                  new_vol = f\"\
+        {vol:03}\"\n                  if new_vol == vol_num:\n                   \
+        \   uid = meta['uid']\n                      image_group = meta['image_group']\n\
+        \                      content = pages[f'v{vol_num}']\n                  \
+        \    lines = re.split(f\"(\\\\\\n)\", content)\n                      pages_content\
+        \ = get_clean_pages(lines,uid)\n                      write_text(pages_content,\
+        \ pages_path, vol_num, None, _type)\n                      break\n      elif\
+        \ vol_title == True:\n          for num, vol in enumerate(pages,1):\n    \
+        \          vol_num = vol[1:]\n              for info_num, meta in meta_info.items():\n\
+        \                  vol = meta['vol_num']\n                  new_vol = f\"\
+        {vol:03}\"\n                  if new_vol == vol_num:\n                   \
+        \   uid = meta['uid']\n                      image_group = meta['image_group']\n\
+        \                      volume_title = meta['title']\n                    \
+        \  content = pages[f'v{vol_num}']\n                      lines = re.split(f\"\
+        (\\\\\\n)\", content)\n                      pages_content = get_clean_pages(lines,\
+        \ uid)\n                      write_text(pages_content, pages_path, vol_num,\
+        \ volume_title, _type)\n                      break\n\n\ndef get_pages(opf_path):\n\
+        \      serializer = HFMLSerializer(opf_path, layers=[\"Pagination\"])\n  \
+        \    serializer.apply_layers()\n      results = serializer.get_result()\n\
+        \      return results\n\n\ndef change_file_name_plain(meta_info, opf_path,\
+        \ new_path, vol_title):\n      _type = \"plain\"\n      if vol_title == False:\n\
+        \          for file in os.listdir(f\"{opf_path}/base\"):\n              if\
+        \ file.endswith(\".txt\"):\n                  file_path = Path(f\"{opf_path}/base/{file}\"\
+        )\n                  file_name = file[1:-4]\n                  content = Path(f'{file_path}').read_text(encoding='utf-8')\n\
         \                  for info_num, meta in meta_info.items():\n            \
         \          vol = meta['vol_num']\n                      new_vol = f\"{vol:03}\"\
         \n                      if new_vol == file_name:\n                       \
