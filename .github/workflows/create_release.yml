@@ -126,10 +126,10 @@ jobs:
         \    meta_data = yaml.safe_load(meta_content)\n    base_path = Path(f'{opf_path}/base')\n\
         \    plain_path = Path(f\"./output/publication/plains\")\n    plain_path.mkdir(exist_ok=True,\
         \ parents=True)\n    pages_path = Path(f\"./output/publication/pages\")\n\
-        \    pages_path.mkdir(exist_ok=True, parents=True)\n    meta_info, title,\
-        \ uid, work_id = get_meta_info(meta_data)\n    meta_ttl = get_ttl(work_id)\n\
-        \    if meta_ttl != None:\n        vol_info, num  = parse_volume_info(meta_ttl,\
-        \ work_id)\n        if num != None:\n            filename_info = get_file_name_info(vol_info,\
+        \    pages_path.mkdir(exist_ok=True, parents=True)\n    meta_info, work_id\
+        \ = get_meta_info(meta_data)\n    meta_ttl = get_ttl(work_id)\n    if meta_ttl\
+        \ != None:\n        vol_info, num  = parse_volume_info(meta_ttl, work_id)\n\
+        \        if num != None:\n            filename_info = get_file_name_info(vol_info,\
         \ meta_info, num)\n            meta_info = filename_info\n    change_file_name_plain(meta_info,\
         \ opf_path, plain_path, False) \n    create_zip(plain_path, f\"{pecha_id}_plain.zip\"\
         )\n    pages = get_pages(opf_path)\n    change_file_name_pages(pages, pages_path,\
