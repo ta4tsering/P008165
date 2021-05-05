@@ -1,8 +1,7 @@
 name: create release
 'on': 
   push:
-   branch:
-     [ /P008165/P008165.opf/**, /P008165/.github/workflows/** ]
+   paths:'/P008165/P008165.opf/**' | '/P008165/.github/workflows/**' 
 jobs:
   release-project:
     name: Release different versions of Text file
