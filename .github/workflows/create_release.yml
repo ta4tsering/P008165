@@ -1,8 +1,8 @@
 name: create release
 'on': 
   push:
-      paths:
-          '/P008165/P008165.opf/** | /P008165/.github/workflows/**' 
+    paths-ignore:
+          '**/README.md'
 jobs:
   release-project:
     name: Release different versions of Text file
