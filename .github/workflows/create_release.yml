@@ -1,5 +1,5 @@
 name: create release
-'on': "\n\tpush:\n\t\tpaths-ignore:\n\t\t\t\t\t'**/README.md'"
+'on': "\n\tpush:\n\t\tpaths-ignore:\n\t\t\t\t'**/README.md'"
 jobs:
   release-project:
     name: Release different versions of Text file
