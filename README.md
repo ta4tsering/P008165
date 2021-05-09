@@ -4,7 +4,7 @@
 |Author  /  རྩོམ་པ་པོ་  | 
 |BDRC ID | W1KG17431
 |Creator | Google OCR
-|Number of volumes  /  དཔར་རིས་འབྱུང་ཁུངས། | 2
+|Number of volumes  /  པོད་ཁ་གྲངས། | 2
 |Edit onlin | [<img width="25" src="https://img.icons8.com/color/25/000000/edit-property.png"> Open in Editor](http://editor.openpecha.org/P008165)
 |Download  /  ཕབས་ལེན། | [![](https://img.icons8.com/color/20/000000/txt.png)Plain Text](https://github.com/Openpecha/P008165/releases/download/v02/P008165_base.zip), [![](https://img.icons8.com/color/20/000000/txt.png)Text with Pagination](https://github.com/Openpecha/P008165/releases/download/v02/P008165_hfml.zip)
-|Source images  /  པོད་ཁ་གྲངས། | [<img width="25" src="https://library.bdrc.io/icons/BUDA-small.svg"> Images of text file open in BUDA](https://library.bdrc.io/show/bdr:W1KG17431)
+|Source images  /  དཔར་རིས་འབྱུང་ཁུངས། | [<img width="25" src="https://library.bdrc.io/icons/BUDA-small.svg"> Images of text file open in BUDA](https://library.bdrc.io/show/bdr:W1KG17431)
