@@ -148,7 +148,7 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./${{ github.event.repository.name }}_plain.zip
-        asset_name: tsema_rik_shyung_gyatso_plain_P00816.zip
+        asset_name: tsema_rik_shyung_gyatso_plain_P008165.zip
         asset_content_type: text/zip
     - name: upload pages assets
       uses: actions/upload-release-asset@v1
@@ -157,5 +157,5 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./${{ github.event.repository.name }}_pages.zip
-        asset_name: tsema_rik_shyung_gyatso_pages_P00816.zip
+        asset_name: tsema_rik_shyung_gyatso_pages_P008165.zip
         asset_content_type: text/zip
