@@ -1,5 +1,7 @@
 name: create release
-'on': push
+'on':
+  push:
+    paths-ignore: '**/README.md'
 jobs:
   release-project:
     name: Release different versions of Text file
@@ -13,7 +15,7 @@ jobs:
     - name: Install dependencies
       run: 'python -m pip install --upgrade pip
 
-        pip install zipfile36 openpecha PyYAML rdlib requests
+        pip install zipfile36 openpecha PyYAML rdflib requests
 
         '
     - name: Create zip file for plain and pages
@@ -146,7 +148,7 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./${{ github.event.repository.name }}_plain.zip
-        asset_name: tsema_lekpa_ra_shepa_tamché_kyi_chuwo_yongsu_duwa_i_rikpa_i_shyungluk_kyi_gyatso_plain_P00816.zip
+        asset_name: tsema_rik_shyung_gyatso_plain_P00816.zip
         asset_content_type: text/zip
     - name: upload pages assets
       uses: actions/upload-release-asset@v1
@@ -155,5 +157,5 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./${{ github.event.repository.name }}_pages.zip
-        asset_name: tsema_lekpa_ra_shepa_tamché_kyi_chuwo_yongsu_duwa_i_rikpa_i_shyungluk_kyi_gyatso_pages_P00816.zip
+        asset_name: tsema_rik_shyung_gyatso_pages_P00816.zip
         asset_content_type: text/zip
